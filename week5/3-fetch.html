@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch</title>
+    <link rel="stylesheet" href="../css/prism-coy.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Fetch</h1>
+    </header>
+    <main>
+      <h2>AJAX: asynchronous requests</h2>
+      <p>
+        AJAX stands for Asynchronous Javascript And Xml. It is the ability of a
+        webpage to make a request to a server after it has loaded for additional
+        information. The requests are Asynchronous in that the program the made
+        them does not wait around doing nothing until they come back...it will
+        move on and do more stuff, the requests are made with Javascript, but
+        they don't often return XML anymore. Most often now you will get the
+        information back as JSON.
+      </p>
+      <p>
+        Originally the requests were made using <code>XmlHttpRequest</code>, and
+        you will still see that around, but more and more developers are turning
+        to the newer <code>fetch</code> command to make their requests.
+      </p>
+      <h2>Promises</h2>
+      <p>
+        The asynchronous nature of these requests is a blessing and a curse. A
+        blessing because the developer has no control over how quickly or slowly
+        the server responds. So if the request was made synchronously nothing
+        else could happen until the request finished. If the server you are
+        waiting is slow, it will make your application slow...not good.
+      </p>
+      <p>
+        Asynchronous programming is a bit different to work with however. You
+        have to deal with the fact that your code might not run in the order you
+        wrote it. There are two main ways for dealing with this. One we have
+        talked about before...callback functions. They have been used for a
+        while now. But often lead to code that is really hard to follow...<a
+          href="http://callbackhell.com"
+          target="_blank"
+          >callback hell</a
+        >
+        is what is often referred to.
+      </p>
+      <p>
+        The newer method for writing asynchronous code is <kbd>Promises</kbd>.
+        Promises essentially give us another way to say "when you finish your
+        thing...<code>then</code> do this next thing". The best way to
+        understand them is by seeing them in practice. Luckily for us
+        <code>fetch</code> uses promises.
+      </p>
+      <h2>Examples</h2>
+      <p>
+        We will use <code>fetch</code> to pull some data from a remote API
+        (application programming interface). An API is essentially what happens
+        when an organization decides to expose part of a program they own to the
+        world. Why would they do this? Well let's take Calendly for example. It
+        is an online calendaring application. A student can go sign up for an
+        appointment with their instructor easily with it. The University uses
+        Microsoft Exchange for calendaring. If something doesn't show up
+        there...I will miss it. Luckily Exchange has an API. Through this API
+        Calendly can log into my Exchange account and add things directly to my
+        calendar if I give it permission to.
+      </p>
+      <p>
+        So as soon as a student signs up for an appointment in Calendly, the
+        appointment automatically gets added to my calendar. This is one example
+        of when an API is very useful.
+      </p>
+      <p>
+        We are going to use a fairly simple free API called
+        <a href="https://pokeapi.co" target="_blank">pokeapi</a>. If you visit
+        that website you will find the documentation on how to request data, and
+        examples. Let's use the example it has to pull information about the
+        Pokemon Ditto.
+      </p>
+      <pre><code class="lang-js">
+const url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+const results = fetch(url);
+console.log(results);
+      </code></pre>
+      <p>
+        There is a lot going on in that simple line of code. With it we made a
+        request for some specific information from a remote server. Notice
+        however that we did not get the information yet. Just as was mentioned
+        above <code>fetch</code> returns a Promise. We have to tell it what we
+        want it to do once the promise <kbd>fulfills</kbd> or finishes what it
+        is doing. We do that with the <code>.then()</code> method.
+      </p>
+      <pre><code class="lang-js">
+  p.then(onFulfilled[, onRejected]);
+
+  p.then(value => {
+    // fulfillment
+  }, reason => {
+    // rejection
+  });
+</code></pre>
+      <p>
+        <code>.then()</code> takes two parameters...one required that contains
+        what should happen is the request was successful, and one optional that
+        contains what should happen if the request fails.
+      </p>
+      <pre><code class="lang-js">
+  const url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+  let results = null;
+  function processResults(response) {
+    // we must convert our response into JSON since that is what the API returned.
+    const jsonPromise = response.json();
+    // .json() also returns a promise...so we have to tell it what to do when
+    // it finishes with another .then()
+    jsonPromise.then(data => {
+      results = data;
+      console.log("first: ",results);
+    })
+  }
+  //read this as: make a request to URL, WHEN it finishes THEN run processResults
+fetch(url).then(processResults);
+// meanwhile...continue with the rest of the program...
+console.log("second: ", results);
+</code></pre>
+      <p>
+        Note that the second console.log ran first...then the first one.
+        Remember that in async programming Javascript does not wait for
+        everything to finish before moving on. If we had tried to use
+        <code>results</code> immediately it would have failed. Instead we do
+        whatever we need to do with <code>results</code> in the callback that
+        gets called by <code>.then()</code>.
+      </p>
+      <p>
+        Note that this can be simplified quite a bit...without the comments and
+        condensed the code above could look like this:
+      </p>
+      <pre><code class="lang-js">
+  const url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+  let results = null;
+  fetch(url).then(response => response.json())
+            .then(data => {
+              results = data;
+              console.log('first: ',results);
+            });
+  console.log('second: ', results);
+      </code></pre>
+      <p>
+        In english I would read that code as: "Make a request to the URL, when
+        it finishes THEN take the response, convert it to JSON and return it;
+        when that finishes THEN set the results variable equal to the JSON data,
+        and log results out".
+      </p>
+    </main>
+
+    <script src="../js/prism.js"></script>
+    <script>
+      const url = "https://pokeapi.co/api/v2/pokemon/ditto";
+      let results = null;
+      function processResults(response) {
+        // we must convert our response into JSON since that is what the API returned.
+        response.json().then((data) => {
+          // .json() also returns a promise...so we have to tell it what to do with another .then()
+          results = data;
+          console.log("first: ", results);
+        });
+      }
+      fetch(url).then(processResults);
+      console.log("second: ", results);
+    </script>
+  </body>
+</html>

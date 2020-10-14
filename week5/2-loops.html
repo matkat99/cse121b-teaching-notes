@@ -12,18 +12,28 @@
       <h1>Loops</h1>
     </header>
     <main>
-      <h2>IF</h2>
-      <h2>Switch</h2>
-      <a href="2-array-methods.html">Next: Array Methods</a>
+      <h2>for-of</h2>
+      <p>
+        Replacement for the <code>for</code> loop. <code>Array.forEach</code> or
+        <code>Array.map</code> are usually better options if you are looping
+        over an array (which you often are).
+      </p>
+      <h2>for-in</h2>
+      <p>
+        This allows you to iterate over objects. It returns the key of the item
+        instead of the value like <code>for of</code>. If you find yourself
+        reaching for this often you should probably take a look at how you are
+        storing your data...
+      </p>
+      <h2>while</h2>
+      <p>
+        <code>while</code> is great for when you need to do something until a
+        certain state occurs in your program. You know when you want the loop to
+        end...but aren't sure how many loops it will require to get there.
+      </p>
+      <a href="3-fetch.html">Next: Fetch</a>
     </main>
-    <footer>
-      Much of the detail above comes from
-      <a
-        href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Overview_of_Events_and_Handlers"
-        >MDN: Overview of Events and Handlers</a
-      >
-      Highly recommend reading to learn more.
-    </footer>
+
     <script src="../js/prism.js"></script>
   </body>
 </html>

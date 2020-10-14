@@ -104,20 +104,15 @@ const aCourse = {
         // some data that we got from a server
         const response = getSomeExternalData();
         const objectWeCanUse = JSON.parse(response);
+        // JSON coming from a fetch call...
+        const remoteData = fetch(someUrl).then((response) => response.json());
       </code></pre>
 
       <a href="2-gpa-calc-2.html"
         >Next: New and Improved GPA Calculator example</a
       >
     </main>
-    <footer>
-      Much of the detail above comes from
-      <a
-        href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Overview_of_Events_and_Handlers"
-        >MDN: Overview of Events and Handlers</a
-      >
-      Highly recommend reading to learn more.
-    </footer>
+    
     <script src="../js/prism.js"></script>
   </body>
 </html>
