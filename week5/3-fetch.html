@@ -95,9 +95,9 @@ console.log(results);
         <code>.then()</code> method.
       </p>
       <pre><code class="lang-js">
-  p.then(onFulfilled[, onRejected]);
+  promise.then(onFulfilled[, onRejected]);
 
-  p.then(value => {
+  promise.then(value => {
     // fulfillment
   }, reason => {
     // rejection
@@ -105,16 +105,17 @@ console.log(results);
 </code></pre>
       <p>
         <code>.then()</code> takes two parameters...one required that contains
-        what should happen is the request was successful, and one optional that
+        what should happen if the request was successful, and one optional that
         contains what should happen if the request fails.
       </p>
       <p>
         <code>fetch</code> does not return usable data initially. Instead we
         have to tell it what we were expecting...and ask it to convert the
         response into the right kind of data. The three types it understands are
-        <kbd>json()</kbd>, <kbd>text()</kbd>, and <kbd>blob()</kbd> (anything
-        but text or json). We are expecting JSON back from the api we made the
-        request to. So we should convert it to that.
+        <kbd>json()</kbd>, <kbd>text()</kbd> (HTML and XML would be considered
+        text), and <kbd>blob()</kbd> (blob is anything that isn't text or json).
+        We are expecting JSON back from the api we made the request to. So we
+        should convert it to that.
       </p>
       <pre><code class="lang-js line-numbers">
 const url = "https://pokeapi.co/api/v2/pokemon/ditto";
