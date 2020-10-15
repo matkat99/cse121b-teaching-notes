@@ -106,21 +106,35 @@ console.log(results);
         what should happen is the request was successful, and one optional that
         contains what should happen if the request fails.
       </p>
+      <p>
+        <code>fetch</code> does not return usable data initially. Instead we
+        have to tell it what we were expecting...and ask it to convert the
+        response into the right kind of data. The three types it understands are
+        <kbd>json()</kbd>, <kbd>text()</kbd>, and <kbd>blob()</kbd> (anything
+        but text or json). We are expecting JSON back from the api we made the
+        request to. So we should convert it to that.
+      </p>
       <pre><code class="lang-js">
-  const url = 'https://pokeapi.co/api/v2/pokemon/ditto';
-  let results = null;
-  function processResults(response) {
-    // we must convert our response into JSON since that is what the API returned.
-    const jsonPromise = response.json();
-    // .json() also returns a promise...so we have to tell it what to do when
-    // it finishes with another .then()
-    jsonPromise.then(data => {
-      results = data;
-      console.log("first: ",results);
-    })
+const url = "https://pokeapi.co/api/v2/pokemon/ditto";
+let results = null;
+// takes a fetch response and checks to make sure it was OK.
+// then returns the body of the response as a PROMISE to some JSON.
+function convertToJson(response) {
+  if (response.ok) {
+    return response.json();
+  } else {
+    console.log("error:", response);
   }
-  //read this as: make a request to URL, WHEN it finishes THEN run processResults
-fetch(url).then(processResults);
+}
+// this is where we would do whatever we needed to do with the resulting data.
+function doStuff(data) {
+  results = data;
+  console.log("first: ", results);
+}
+
+// read this as: make a request to URL, WHEN it finishes THEN run convertToJson
+// WHEN it finishes THEN run doStuff
+fetch(url).then(convertToJson).then(doStuff);
 // meanwhile...continue with the rest of the program...
 console.log("second: ", results);
 </code></pre>
@@ -133,17 +147,24 @@ console.log("second: ", results);
         gets called by <code>.then()</code>.
       </p>
       <p>
-        Note that this can be simplified quite a bit...without the comments and
-        condensed the code above could look like this:
+        Note that this would often be done with anonymous functions...without
+        the comments and condensed the code above could look like this:
       </p>
       <pre><code class="lang-js">
   const url = 'https://pokeapi.co/api/v2/pokemon/ditto';
   let results = null;
-  fetch(url).then(response => response.json())
-            .then(data => {
-              results = data;
-              console.log('first: ',results);
-            });
+  fetch(url)
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      console.log("error:", response);
+    }
+  })
+  .then((data) => {
+    results = data;
+    console.log("first: ", results);
+  });
   console.log('second: ', results);
       </code></pre>
       <p>
