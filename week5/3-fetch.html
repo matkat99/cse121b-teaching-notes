@@ -181,19 +181,5 @@ console.log('second: ', results);
     </main>
 
     <script src="../js/prism.js"></script>
-    <script>
-      const url = "https://pokeapi.co/api/v2/pokemon/ditto";
-      let results = null;
-      function processResults(response) {
-        // we must convert our response into JSON since that is what the API returned.
-        response.json().then((data) => {
-          // .json() also returns a promise...so we have to tell it what to do with another .then()
-          results = data;
-          console.log("first: ", results);
-        });
-      }
-      fetch(url).then(processResults);
-      console.log("second: ", results);
-    </script>
   </body>
 </html>
