@@ -23,9 +23,19 @@
         often now you will get the information back as JSON.
       </p>
       <p>
-        Originally the requests were made using <code>XmlHttpRequest</code>, and
-        you will still see that around, but more and more developers are turning
-        to the newer <code>fetch</code> command to make their requests.
+        Originally the requests were made using
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest"
+          target="_blank"
+          ><code>XmlHttpRequest</code></a
+        >, and you will still see that around, but more and more developers are
+        turning to the newer
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"
+          target="_blank"
+          ><code>fetch</code></a
+        >
+        command to make their requests.
       </p>
       <h2>Promises</h2>
       <p>
@@ -92,7 +102,12 @@ console.log(results);
         yet. Just as was mentioned above <code>fetch</code> returns a Promise.
         We have to tell it what we want it to do once the promise
         <kbd>fulfills</kbd> or finishes what it is doing. We do that with the
-        <code>.then()</code> method.
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"
+          target="_blank"
+          ><code>.then()</code></a
+        >
+        method.
       </p>
       <pre><code class="lang-js">
   promise.then(onFulfilled[, onRejected]);
