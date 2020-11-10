@@ -108,7 +108,7 @@ let new_array = arr.map(function callback( currentValue[, index[, array]]) {
 // example 1
 const steps = ['one', 'two', 'three'];
 const stepsHtml = steps.map(function(step) {
-  return `&lt;li&gt;${item}&lt;/li&gt;`;
+  return `&lt;li&gt;${step}&lt;/li&gt;`;
 });
 document.getElementById('myList').innerHTML = stepsHtml.join();
 
@@ -123,7 +123,7 @@ function convertGradeToPoints(grade) {
   }
   return points;
 }
-const gpaPoints = grade.map(convertGradeToPoints);
+const gpaPoints = grades.map(convertGradeToPoints);
 
 
       </code></pre>
