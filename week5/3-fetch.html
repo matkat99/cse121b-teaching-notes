@@ -193,6 +193,120 @@ console.log('second: ', results);
           data, and log results out".
         </p>
       </div>
+      <h2>Example 2</h2>
+      <p>
+        Our <code>doStuff</code> function in the example above is a bit
+        underwhelming...lets make it do more than just log out. It should really
+        display the data that we retrieved to the user in the browser. We need a
+        list!
+      </p>
+      <ol>
+        <li>
+          Add an element to our HTML to hold the pokemon data...something like
+          <code>&ltsection id="output"&gt&lt;/section&gt;</code>
+        </li>
+        <li>Get that element with javascript. (document.querySelector)</li>
+        <li>
+          In the <code>doStuff</code> function create a variable and build out
+          the html that we want to display the information. (I recommend a
+          template literal string)
+        </li>
+        <li>Insert our HTML into the output element (innerHTML)</li>
+      </ol>
+      <pre><code class="lang-js">function doStuff(data) {
+  const outputElement = document.querySelector('#output');
+  results = data;
+  const html = `&lt;h2&gt;${results.name}&lt;/h2&gt;
+                &lt;img src="${results.sprites.front_default}" alt="Image of ${results.name}"&gt;`;
+  outputElement.innerHTML = html;
+  console.log("first: ", results);
+}</code></pre>
+      <h2>Example 3</h2>
+      <p>
+        As interesting as Ditto is...it would be more fun to get information on
+        lots of pokemon...if we make a slight change to the URL we are making
+        the request to, we can get a list of pokemon instead of just one. Let's
+        do that and then make a new function called
+        <code>doStuffList</code> that will output the list.
+      </p>
+      <ol>
+        <li>
+          Add a <kbd>ul</kbd> element to our html to hold the list. (<code
+            >&ltul id="outputList"&gt&lt;/ul&gt;</code
+          >)
+        </li>
+        <li>Get that element with Javascript</li>
+        <li>
+          Change the url that we are using to make the request to
+          <kbd>const url = "https://pokeapi.co/api/v2/pokemon";</kbd>
+        </li>
+        <li>Create a function: <code>function doStuffList(data) {}</code></li>
+        <li>
+          In the function start by console.logging <code>data</code>. Take a
+          look at the structure of what got sent back. Notice that our list is
+          inside of a property called <kbd>results</kbd>
+        </li>
+        <li>
+          Create a variable called <kbd>pokeList</kbd> and set it equal to
+          <kbd>data.results</kbd>
+        </li>
+        <li>
+          for each of the pokemon in the list: create a line of html to output
+          it (<code>`&ltli&gt${pokeList.name}&lt;/li&gt`</code>
+        </li>
+        <li>Add the new list to what was already in our output element.</li>
+        <li>
+          Change your <code>fetch</code> call to use the
+          <kbd>doStuffList</kbd> function instead of <kbd>doStuff</kbd>
+        </li>
+      </ol>
+      <pre><code class="lang-js">function doStuffList(data) {
+  console.log(data);
+  const pokeListElement = document.querySelector('#pokeList');
+  const pokeList = data.results;
+  pokeList.forEach((currentItem) => {
+      const html = `&lt;li&gt;${currentItem.name}&lt;/li&gt;`;
+      // note the += here...
+      pokeListElement.innerHTML += html;
+  })
+}</code></pre>
+      <h2>Example 4</h2>
+      <p>Our pokemon list is not alphabetized...we should fix that.</p>
+      <ol>
+        <li>Create a function: <code>function sortPokemon(list) {}</code></li>
+        <li>
+          Check out some documentation on <code>Array.sort</code>.
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"
+            target="_blank"
+            >MDN: Sort</a
+          >. Notice that it provides an example compare function at the
+          bottom...we can use that as a model.
+        </li>
+      </ol>
+      <pre><code class="lang-js line-numbers">function compare(a,b) {
+  if(a.name > b.name) {
+      return 1;
+  } else if(a.name < b.name) {
+      return -1;
+  } else return 0;
+}
+
+function sortPokemon(list) {
+    let sortedList = list.sort(compare);
+    return sortedList;
+}
+function doStuffList(data) {
+  console.log(data);
+  const pokeListElement = document.querySelector('#pokeList');
+  const pokeList = data.results;
+  // sort our list before output it
+  pokeList = sortPokemon(pokeList);
+  pokeList.forEach((currentItem) => {
+      const html = `&lt;li&gt;${currentItem.name}&lt;/li&gt;`;
+      pokeListElement.innerHTML += html;
+  })
+}</code></pre>
     </main>
 
     <script src="../js/prism.js"></script>
