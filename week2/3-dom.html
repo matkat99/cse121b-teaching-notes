@@ -97,6 +97,15 @@ document.body.appendChild(newParagraph);
         </code></pre>
         </li>
         <li>
+          What if we wanted to add an image?
+          <pre><code class="lang-js">
+const newImage = document.createElement('img');
+newImage.setAttribute('src', 'path/to/image.jpg');
+newImage.setAttribute('alt', 'Description of image');
+document.body.appendChild(newImage);
+        </code></pre>
+        </li>
+        <li>
           Next add this to main:
           <pre><code class="lang-js">
 const newDiv = document.createElement('div');

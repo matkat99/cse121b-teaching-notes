@@ -286,10 +286,12 @@ console.log('second: ', results);
       </ol>
       <pre><code class="lang-js line-numbers">function compare(a,b) {
   if(a.name > b.name) {
+    // sort b before a
       return 1;
   } else if(a.name < b.name) {
+    // a and b different but unchanged (already in the correct order)
       return -1;
-  } else return 0;
+  } else return 0; // a and b are equal
 }
 
 function sortPokemon(list) {
@@ -298,12 +300,13 @@ function sortPokemon(list) {
 }
 function doStuffList(data) {
   console.log(data);
-  const pokeListElement = document.querySelector('#pokeList');
+  const pokeListElement = document.querySelector('#outputList');
   const pokeList = data.results;
   // sort our list before output it
   pokeList = sortPokemon(pokeList);
   pokeList.forEach((currentItem) => {
       const html = `&lt;li&gt;${currentItem.name}&lt;/li&gt;`;
+      //note the += here
       pokeListElement.innerHTML += html;
   })
 }</code></pre>

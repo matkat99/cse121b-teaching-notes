@@ -110,3 +110,8 @@ li {
 .hint input[type="checkbox"]:checked ~ i:after {
   transform: translate(2px, 0) rotate(-45deg);
 }
+
+details {
+  padding: 0.5em;
+  border: 1px solid;
+}

@@ -29,7 +29,7 @@
         If we enter something like <code>[1,2,3]</code> in the console of a
         browser we will see our array show up with an arrow, if we expand the
         array by clicking on the arrow we see the values in our array and
-        somethign that looks like this: <code>__proto__</code>. Open that up and
+        something that looks like this: <code>__proto__</code>. Open that up and
         we see a bunch of stuff associated with every array. Most of the list is
         helper functions, methods that do useful things with arrays.
       </p>
@@ -52,6 +52,13 @@
           Second notice that it expects a <kbd>callback</kbd> function as it's
           first argument. This callback can be a named function or an anonymous
           function.
+        </li>
+        <li>
+          The callback is where the action takes place...it defines what we want
+          to happen for each item in the array. <code>.forEach()</code> will
+          handle the looping, where to start, where to stop, and will
+          automatically pass each item in the array one at a time into the
+          callback function.
         </li>
         <li>
           That callback function will have up to three parameters passed in that
@@ -144,7 +151,7 @@ arr.reduce(callback( accumulator, currentValue, [, index[, array]] )[, initialVa
       <pre><code class="lang-js">
 // example 1
 // see map example for where the gpaPoints array came from...
-const gpaPoints = grade.map(convertGradeToPoints);
+const gpaPoints = grades.map(convertGradeToPoints);
 const pointsTotal = gpaPoints.reduce(function(total, item) {
   return total + item;
 });
@@ -184,6 +191,27 @@ const shortWords = words.filter(function(word) {
 
 //same thing with an arrow function
 const shortWords = words.filter((word) => word.length &lt; 6);
+      </code></pre>
+      <h2>shift, pop, push</h2>
+      <pre><code class="lang-js">
+let classes = ['CSE121b', ' CIT111', ' WDD130']; 
+console.log(classes); 
+console.log(classes[2]); 
+classes[2] = "CIT222"; 
+console.log(classes); 
+document.querySelector('#class').textContent = classes.join('  '); 
+  
+// take off from beginning 
+classes.shift(); 
+document.querySelector('#class').textContent = classes.join('  '); 
+  
+// take off the end 
+classes.pop(); 
+document.querySelector('#class').textContent = classes.join('  '); 
+  
+// add one to the array 
+classes.push('CIT 230'); 
+document.querySelector('#class').textContent = classes.join('  ');        
       </code></pre>
       <a href="3-organizing.html">Next: Organizing our code</a>
     </main>

@@ -82,11 +82,13 @@ const aCourse = {
   ],
   createSection: function(section) {
     // find highest current section number
-    const highSectionNum = this.sections.reduce((highest, current) => Math.max(highest, current.sectionNum));
-    const newSection = { sectionNum: highSectionNum+1, enrolled: section.enrolled, ...  };
+    const highSectionNum = this.sections.reduce((highest, current) => Math.max(highest.sectionNum, current.sectionNum));
+    const newSection = { sectionNum: highSectionNum+1, roomNum: 'STC 341', enrolled: 25, days: 'TTh', instructor: 'Bro T'}  };
     this.sections.push(newSection);
   } 
 }
+aCourse.createSection(); 
+console.log(aCourse.sections);
                             </code></pre> 
       <h2>JSON</h2>
       <p>
